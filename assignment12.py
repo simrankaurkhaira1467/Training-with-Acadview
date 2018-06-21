@@ -12,18 +12,20 @@ Its purpose is to inform the API that the bearer of this token has been authoriz
 """
 #twitter(access_token)='z00Xy9AkHwp8vSTJ04L0'
 
-
 #question 2: Get the IP address of some common sites like Google,Facebook by using DNS lookup.
 
 import socket
 
 addr1 = socket.gethostbyname("www.google.com")
-addr2 = socket.gethostbyname("www.facenook.com")
+addr2 = socket.gethostbyname("www.facebook.com")
 
 print("IP of google:",addr1)
 print("IP of facebook:",addr2)
 
-#question 4: Using Tweepy library try to extract tweets from Twitter.
+"""Google :172.217.9.164
+   Facebook:157.240.18.35"""
+
+#question 3: Using Tweepy library try to extract tweets from Twitter.
 
 import tweepy
 import json
@@ -40,11 +42,11 @@ auth.set_access_token(access_token, access_token_secret)
 # Creation of the actual interface, using authentication
 api = tweepy.API(auth)
 
-for tweets in tweepy.Cursor(api.user_timeline).items():
-  process_or_store(tweets.json)
-
-def process_or_store(tweets):
-    print(json.dumps(tweets))
+def get_tweet():
+    hash_tag = input("\nEnter the word without the hashtag")
+    hash_tag = "#" + hash_tag
+    tweets = api.search(hash_tag)
+    return tweets
 
 
 #question 4: What is the difference between library and API. Figure it out with examples.
